@@ -58,6 +58,8 @@ because it is the easiest to buy currently and has a new chip: the 16u2.
 
 [MitchTech Uno HID Keyboard walkthrough](http://mitchtech.net/arduino-usb-hid-keyboard/)
 
+[USB HID Keycode Reference](http://download.microsoft.com/download/1/6/1/161ba512-40e2-4cc9-843a-923143f3456c/translate.pdf) ("HID Usage ID" column)
+
 Detailed Arduino UNO Keyboard HID firmware compilation tutorial:
 * [Part 1](http://hunt.net.nz/users/darran/weblog/13a32/Arduino_UNO_Keyboard_HID_Part_1.html)
 * [Part 2](http://hunt.net.nz/users/darran/weblog/faf5e/Arduino_UNO_Keyboard_HID_Part_2.html)
