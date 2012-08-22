@@ -1,20 +1,58 @@
-uint8_t keyNone[8] = { 0, 0, 0, 0, 0, 0, 0 };
-uint8_t keyA[8] = { 0, 0, 4, 0, 0, 0, 0 };
+uint8_t buf[8] = { 0 };
 
 void setup(){
   Serial.begin(9600);
-  delay(2000);
 }
 
 void loop()
 {
-  uint8_t ledStatus;
+  sendInsertModeKeys();
+  delay(1000);
 
-  /* Send an 'a' every second */
-  Serial.write(keyA, 8);
-  ledStatus = Serial.read();
-  delay(100); // Give the host time to read the key
-  Serial.write(keyNone, 8);
+  sendNavModeKeys();
   delay(1000);
 }
+
+void sendInsertModeKeys() {
+  sendShiftKey();
+  delay(100);
+  sendIKey();
+  delay(100);
+  releaseKey();
+}
+
+void sendNavModeKeys() {
+  sendEscKey();
+  delay(100);
+  releaseKey();
+}
+
+void sendShiftKey()
+{
+  buf[0] = 0;
+  buf[2] = 229;
+  Serial.write(buf, 8);
+}
+
+void sendIKey()
+{
+  buf[0] = 0;
+  buf[2] = 12;
+  Serial.write(buf, 8);
+}
+
+void sendEscKey()
+{
+  buf[0] = 0;
+  buf[2] = 41;
+  Serial.write(buf, 8);
+}
+
+void releaseKey()
+{
+  buf[0] = 0;
+  buf[2] = 0;
+  Serial.write(buf, 8);
+}
+
 
