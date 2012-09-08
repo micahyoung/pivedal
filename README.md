@@ -22,17 +22,26 @@ because it is the easiest to buy currently and has a new chip: the 16u2.
 2. Open your sketch and upload it to your Arduino
 3. Put the board into DFU mode by shorting these pins with pliers or a wire. ([diagram](http://arduino.cc/en/uploads/Hacking/Uno-front-DFU-reset.png))
 4. Compile the fork of dfu-programmer by doing these steps:
-  * Install build pre-reqs
-      * Ubuntu: build-essentials, automake, libusb-dev, libusb-1.0.0-dev
-  * Compile dfu-programmer
+  * Ubuntu:
 
     ```
+    sudo apt-get install build-essentials automake libusb-dev libusb-1.0.0-dev
     cd tools/dfu-programmer
     ./bootstrap.sh
     ./configure
     make
     ```
-  * The compiled binary will be at `tools/dfu-programmer/src/dfu-programmer`
+  * OSX
+
+    ```
+    brew install automake autoconf libusb
+    export PATH=/usr/local/opt/automake/bin:/usr/local/opt/autoconf/bin:$PATH
+    cd tools/dfu-programmer
+    ./bootstrap.sh
+    ./configure
+    make
+    ```
+  * The compiled binary path will be `tools/dfu-programmer/src/dfu-programmer`
 
 5. Install the keyboard bootloader:
 
@@ -41,8 +50,7 @@ because it is the easiest to buy currently and has a new chip: the 16u2.
     $dfu-programmer_path at90usb162unor3 flash --debug 1 firmware/Arduino-keyboard.hex
     $dfu-programmer_path at90usb162unor3 reset
     ```
-
-6. Done! Unplug and plug back in to start sending "aaaaa"
+6. Done! Unplug and plug back in to boot with the keyboard firmware and run your sketch.
 7. To reset your Arduino back to normal so you can edit the sketch:
   * Short the pins like in Step 5 to get back to DFU mode
   * Re-flash the default firmware
