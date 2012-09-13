@@ -31,10 +31,10 @@ because it is the easiest to buy currently and has a new chip: the 16u2.
     ./configure
     make
     ```
-  * OSX
+  * OSX with [homebrew](http://mxcl.github.com/homebrew/)
 
     ```
-    brew install automake autoconf libusb
+    brew install automake autoconf pkg-config libusb
     export PATH=/usr/local/opt/automake/bin:/usr/local/opt/autoconf/bin:$PATH
     cd tools/dfu-programmer
     ./bootstrap.sh
@@ -47,7 +47,7 @@ because it is the easiest to buy currently and has a new chip: the 16u2.
 
     ```
     $dfu-programmer_path at90usb162unor3 erase
-    $dfu-programmer_path at90usb162unor3 flash --debug 1 firmware/Arduino-keyboard.hex
+    $dfu-programmer_path at90usb162unor3 flash firmware/Arduino-keyboard.hex
     $dfu-programmer_path at90usb162unor3 reset
     ```
 6. Done! Unplug and plug back in to boot with the keyboard firmware and run your sketch.
@@ -57,7 +57,7 @@ because it is the easiest to buy currently and has a new chip: the 16u2.
 
     ```
     $dfu-programmer_path at90usb162unor3 erase
-    $dfu-programmer_path at90usb162unor3 flash --debug 1 firmware/Arduino-usbserial.hex
+    $dfu-programmer_path at90usb162unor3 flash firmware/Arduino-usbserial.hex
     $dfu-programmer_path at90usb162unor3 reset
     ```
   * Unplug and plug back in. It's ready for a sketch upload.
