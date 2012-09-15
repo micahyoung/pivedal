@@ -28,7 +28,7 @@ because it is the easiest to buy currently and has a new chip: the 16u2.
     sudo apt-get install build-essentials automake libusb-dev libusb-1.0.0-dev
     cd tools/dfu-programmer
     ./bootstrap.sh
-    ./configure
+    ./configure LIBS=-lusb-1.0
     make
     ```
   * OSX with [homebrew](http://mxcl.github.com/homebrew/)
