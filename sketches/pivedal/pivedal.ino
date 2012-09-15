@@ -1,42 +1,45 @@
-int sensorPin = A0;    // select the input pin for the potentiometer
-int sensorValue = 0;  // variable to store the value coming from the sensor
-int mode = 0;
+const int sensorPin = 2;
+const int INS_MODE = 1;
+const int NAV_MODE = 2;
 
+int sensorValue;
+int mode;
 uint8_t keyBuffer[8] = { 0 };
 
-void setup(){
+void setup() {
   Serial.begin(9600);
+  pinMode(sensorPin, INPUT);
 }
 
-void loop()
-{
+void loop() {
   switch (mode) {
-    case 1:
+    case INS_MODE:
       if (!isPedalDown()) {
         sendNavModeKeys();
-        mode = 2;
+        mode = NAV_MODE;
       }
       break;
-    case 2:
+    case NAV_MODE:
       if (isPedalDown()) {
         sendInsertModeKeys();
-        mode = 1;
+        mode = INS_MODE;
       }
       break;
     default:
       if (isPedalDown()) {
-        mode = 1;
+        mode = INS_MODE;
       } else {
-        mode = 2;
+        mode = NAV_MODE;
       }
   }
-  
-  delay(500);
+
+  delay(100);
 }
 
 boolean isPedalDown() {
-  sensorValue = analogRead(sensorPin);
-  if (sensorValue >= 512) {
+  sensorValue = digitalRead(sensorPin);
+
+  if (sensorValue == HIGH) {
     return true;
   } else {
     return false;
@@ -56,8 +59,7 @@ void sendNavModeKeys() {
   sendKey("Release");
 }
 
-void sendKey(char Key[])
-{
+void sendKey(char Key[]) {
   keyBuffer[0] = 0;
 
   if (strcmp(Key, "i") == 0) {
@@ -73,4 +75,3 @@ void sendKey(char Key[])
   Serial.write(keyBuffer, 8);
   delay(100); //allow host to read
 }
-
