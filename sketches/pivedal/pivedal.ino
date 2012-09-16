@@ -50,8 +50,9 @@ int pedalStatus() {
 }
 
 void sendInsertModeKeys() {
-  sendKey("Shift");
-  sendKey("i");
+  sendKey("Esc");
+  sendKey("Release");
+  sendKey("Ins");
   sendKey("Release");
 }
 
@@ -65,10 +66,8 @@ void sendNavModeKeys() {
 void sendKey(char Key[]) {
   keyBuffer[0] = 0;
 
-  if (strcmp(Key, "i") == 0) {
-    keyBuffer[2] = 12;
-  } else if (strcmp(Key, "Shift") == 0) {
-    keyBuffer[2] = 229;
+  if (strcmp(Key, "Ins") == 0) {
+    keyBuffer[2] = 73;
   } else if (strcmp(Key, "Esc") == 0) {
     keyBuffer[2] = 41;
   } else if (strcmp(Key, "Release") == 0) {
