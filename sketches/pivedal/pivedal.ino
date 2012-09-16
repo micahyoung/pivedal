@@ -1,9 +1,11 @@
 const int sensorPin = 2;
 const int INS_MODE = 1;
 const int NAV_MODE = 2;
+const int PEDAL_DOWN = 1;
+const int PEDAL_UP = 2;
 
 int sensorValue;
-int mode;
+int current_mode;
 uint8_t keyBuffer[8] = { 0 };
 
 void setup() {
@@ -12,37 +14,38 @@ void setup() {
 }
 
 void loop() {
-  switch (mode) {
+  switch (current_mode) {
     case INS_MODE:
-      if (!isPedalDown()) {
+      if (pedalStatus() == PEDAL_UP) {
         sendNavModeKeys();
-        mode = NAV_MODE;
+        current_mode = NAV_MODE;
       }
       break;
     case NAV_MODE:
-      if (isPedalDown()) {
+      if (pedalStatus() == PEDAL_DOWN) {
         sendInsertModeKeys();
-        mode = INS_MODE;
+        current_mode = INS_MODE;
       }
       break;
     default:
-      if (isPedalDown()) {
-        mode = INS_MODE;
+      if (pedalStatus() == PEDAL_DOWN) {
+        current_mode = INS_MODE;
       } else {
-        mode = NAV_MODE;
+        current_mode = NAV_MODE;
       }
   }
 
   delay(100);
 }
 
-boolean isPedalDown() {
-  sensorValue = digitalRead(sensorPin);
-
-  if (sensorValue == HIGH) {
-    return true;
-  } else {
-    return false;
+int pedalStatus() {
+  switch (digitalRead(sensorPin)) {
+    case HIGH:
+      return PEDAL_DOWN;
+      break;
+    case LOW:
+      return PEDAL_UP;
+      break;
   }
 }
 
