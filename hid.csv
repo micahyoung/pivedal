@@ -1,0 +1,189 @@
+Key	Code (Hex)	Code (Dec)
+System Power	81	129
+System Sleep	82	130
+System Wake	83	131
+No Event	00	0
+Overrun Error	01	1
+POST Fail	02	2
+ErrorUndefined	03	3
+aA	04	4
+bB	05	5
+cC	06	6
+dD	07	7
+eE	08	8
+fF	09	9
+gG	0A	10
+hH	0B	11
+iI	0C	12
+jJ	0D	13
+kK	0E	14
+lL	0F	15
+mM	10	16
+nN	11	17
+oO	12	18
+pP	13	19
+qQ	14	20
+rR	15	21
+sS	16	22
+tT	17	23
+uU	18	24
+vV	19	25
+wW	1A	26
+xX	1B	27
+yY	1C	28
+zZ	1D	29
+1!	1E	30
+2@	1F	31
+3#	20	32
+4$	21	33
+5%	22	34
+6^	23	35
+7&	24	36
+8*	25	37
+9(	26	38
+0)	27	39
+Return	28	40
+Escape	29	41
+Backspace	2A	42
+Tab	2B	43
+Space	2C	44
+-_	2D	45
++=	2E	46
+[{	2F	47
+]}	30	48
+\|	31	49
+Europe 1 (Note 2)	32	50
+;:	33	51
+"'"""	34	52
+`~	35	53
+,<	36	54
+.>	37	55
+/?	38	56
+Caps Lock	39	57
+F1	3A	58
+F2	3B	59
+F3	3C	60
+F4	3D	61
+F5	3E	62
+F6	3F	63
+F7	40	64
+F8	41	65
+F9	42	66
+F10	43	67
+F11	44	68
+F12	45	69
+Print Screen (Note 1)	46	70
+Scroll Lock	47	71
+Break (Ctrl-Pause)	48	72
+Pause	48	72
+Insert (Note 1)	49	73
+Home (Note 1)	4A	74
+Page Up (Note 1)	4B	75
+Delete (Note 1)	4C	76
+End (Note 1)	4D	77
+Page Down (Note 1)	4E	78
+Right Arrow (Note 1)	4F	79
+Left Arrow (Note 1)	50	80
+Down Arrow (Note 1)	51	81
+Up Arrow (Note 1)	52	82
+Num Lock	53	83
+Keypad / (Note 1)	54	84
+Keypad *	55	85
+Keypad -	56	86
+Keypad +	57	87
+Keypad Enter	58	88
+Keypad 1 End	59	89
+Keypad 2 Down	5A	90
+Keypad 3 PageDn	5B	91
+Keypad 4 Left	5C	92
+Keypad 5	5D	93
+Keypad 6 Right	5E	94
+Keypad 7 Home	5F	95
+Keypad 8 Up	60	96
+Keypad 9 PageUp	61	97
+Keypad 0 Insert	62	98
+Keypad . Delete	63	99
+Europe 2 (Note 2)	64	100
+App	65	101
+Keyboard Power	66	102
+Keypad =	67	103
+F13	68	104
+F14	69	105
+F15	6A	106
+F16	6B	107
+F17	6C	108
+F18	6D	109
+F19	6E	110
+F20	6F	111
+F21	70	112
+F22	71	113
+F23	72	114
+F24	73	115
+Keyboard Execute	74	116
+Keyboard Help	75	117
+Keyboard Menu	76	118
+Keyboard Select	77	119
+Keyboard Stop	78	120
+Keyboard Again	79	121
+Keyboard Undo	7A	122
+Keyboard Cut	7B	123
+Keyboard Copy	7C	124
+Keyboard Paste	7D	125
+Keyboard Find	7E	126
+Keyboard Mute	7F	127
+Keyboard Volume Up	80	128
+Keyboard Volume Dn	81	129
+Keyboard Locking Caps Lock	82	130
+Keyboard Locking Num Lock	83	131
+Keyboard Locking Scroll Lock	84	132
+Keypad ,	85	133
+(Brazilian Keypad .)	86	134
+Keyboard Equal Sign	87	135
+Keyboard Lang 6	95	149
+Keyboard Lang 7	96	150
+Keyboard Lang 8	97	151
+Keyboard Lang 9	98	152
+Keyboard Alternate Erase	99	153
+Keyboard SysReq/Attention	9A	154
+Keyboard Cancel	9B	155
+Keyboard Clear	9C	156
+Keyboard Prior	9D	157
+Keyboard Return	9E	158
+Keyboard Separator	9F	159
+Keyboard Out	A0	160
+Keyboard Oper	A1	161
+Keyboard Clear/Again	A2	162
+Keyboard CrSel/Props	A3	163
+Keyboard ExSel	A4	164
+Left Control	E0	224
+Left Shift	E1	225
+Left Alt	E2	226
+Left GUI	E3	227
+Right Control	E4	228
+Right Shift	E5	229
+Right Alt	E6	230
+Right GUI	E7	231
+Scan Next Track	00B5	
+Scan Previous Track	00B6	
+Stop	00B7	
+Play/ Pause	00CD	
+Mute	00E2	
+Bass Boost	00E5	
+Loudness	00E7	
+Volume Up	00E9	
+Volume Down	00EA	
+Bass Up	0152	
+Bass Down	0153	
+Treble Up	0154	
+Treble Down	0155	
+Media Select	0183	
+Mail	018A	
+Calculator	0192	
+My Computer	0194	
+WWW Search	0221	
+WWW Home	0223	
+WWW Back	0224	
+WWW Forward	0225	
+WWW Stop	0226	
+WWW Refresh	0227	
+WWW Favorites	022A	
