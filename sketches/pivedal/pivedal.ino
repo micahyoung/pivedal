@@ -1,21 +1,21 @@
-const int sensorPin = 2;
-const int interruptPin = 0;
+const int SENSOR_PIN = 2;
+const int INTERRUPT_PIN = 0;
 
 const byte PEDAL_DOWN = 1;
 const byte PEDAL_UP = 2;
-const byte INS_MODE = 1;
-const byte NAV_MODE = 2;
+const byte INS_MODE = 3;
+const byte NAV_MODE = 4;
 volatile byte currentMode;
 
 void setup() {
   Serial.begin(9600);
-  pinMode(sensorPin, INPUT);
-  attachInterrupt(interruptPin,  on_change, CHANGE);
+  pinMode(SENSOR_PIN, INPUT);
+  attachInterrupt(INTERRUPT_PIN, on_change, CHANGE);
   currentMode = (pedal_status() == PEDAL_DOWN) ? INS_MODE : NAV_MODE;
 }
 
-long lastDebounceTime = 0;
 const int DEBOUNCE_DELAY = 100;
+long lastDebounceTime = 0;
 void on_change() {
   if ((millis() - lastDebounceTime) > DEBOUNCE_DELAY) {
     lastDebounceTime = millis();
@@ -43,11 +43,11 @@ byte *clear_queue() {
   }
   queueCount = 0;
 
-  return currentQueue; 
+  return currentQueue;
 }
 
 int pedal_status() {
-  return (digitalRead(sensorPin) == HIGH) ? PEDAL_DOWN : PEDAL_UP;
+  return (digitalRead(SENSOR_PIN) == HIGH) ? PEDAL_DOWN : PEDAL_UP;
 }
 
 void loop() {
