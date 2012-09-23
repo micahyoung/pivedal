@@ -65,11 +65,11 @@ because it is the easiest to buy currently and has a new chip: the 16u2.
     ```
     * Which effectively runs:
 
-    ```
-    $dfu-programmer_path at90usb162unor3 erase
-    $dfu-programmer_path at90usb162unor3 flash firmware/Arduino-usbserial.hex
-    $dfu-programmer_path at90usb162unor3 reset
-    ```
+      ```
+      $dfu-programmer_path at90usb162unor3 erase
+      $dfu-programmer_path at90usb162unor3 flash firmware/Arduino-usbserial.hex
+      $dfu-programmer_path at90usb162unor3 reset
+      ```
   * Unplug and plug back in. It's ready for a sketch upload.
 
 ## References
