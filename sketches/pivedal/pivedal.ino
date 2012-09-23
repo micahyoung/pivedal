@@ -34,28 +34,28 @@ void queue_push(byte stat) {
   }
 }
 
-int pedal_status() {
-  switch (digitalRead(sensorPin)) {
-    case HIGH:
-      return PEDAL_DOWN;
-      break;
-    case LOW:
-      return PEDAL_UP;
-      break;
-  }
-}
+byte *clear_queue() {
+  static byte currentQueue[QUEUE_SIZE];
+  memcpy(currentQueue, (byte *)queue, sizeof(*queue));
 
-void loop() {
-  if (queueCount == 0) { return; }
-  int pedalEvent;
-  
-  byte currentQueue[QUEUE_SIZE];
-  memcpy(currentQueue, (byte *)queue, sizeof(*queue) );
   for (int i = 0; i < QUEUE_SIZE; i++) {
     queue[i] = NULL;
   }
   queueCount = 0;
 
+  return currentQueue; 
+}
+
+int pedal_status() {
+  return (digitalRead(sensorPin) == HIGH) ? PEDAL_DOWN : PEDAL_UP;
+}
+
+void loop() {
+  if (queueCount == 0) { return; }
+
+  byte *currentQueue = clear_queue();
+
+  int pedalEvent;
   for (int i = 0; i < QUEUE_SIZE; i++) {
     if (!currentQueue[i]) { continue; }
     pedalEvent = currentQueue[i];
