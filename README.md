@@ -46,6 +46,11 @@ because it is the easiest to buy currently and has a new chip: the 16u2.
 5. Install the keyboard bootloader:
 
     ```
+    ./flash.sh keyboard
+    ```
+  * This script effectively runs:
+
+    ```
     $dfu-programmer_path at90usb162unor3 erase
     $dfu-programmer_path at90usb162unor3 flash firmware/Arduino-keyboard.hex
     $dfu-programmer_path at90usb162unor3 reset
@@ -54,6 +59,11 @@ because it is the easiest to buy currently and has a new chip: the 16u2.
 7. To reset your Arduino back to normal so you can edit the sketch:
   * Short the pins like in Step 5 to get back to DFU mode
   * Re-flash the default firmware
+
+    ```
+    ./flash.sh arduino
+    ```
+    * Which effectively runs:
 
     ```
     $dfu-programmer_path at90usb162unor3 erase
