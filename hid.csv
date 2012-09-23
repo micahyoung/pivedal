@@ -52,7 +52,7 @@ Space	2C	44
 [{	2F	47
 ]}	30	48
 \|	31	49
-Europe 1 (Note 2)	32	50
+Europe 1	32	50
 ;:	33	51
 "'"""	34	52
 `~	35	53
@@ -72,22 +72,22 @@ F9	42	66
 F10	43	67
 F11	44	68
 F12	45	69
-Print Screen (Note 1)	46	70
+Print Screen	46	70
 Scroll Lock	47	71
 Break (Ctrl-Pause)	48	72
 Pause	48	72
-Insert (Note 1)	49	73
-Home (Note 1)	4A	74
-Page Up (Note 1)	4B	75
-Delete (Note 1)	4C	76
-End (Note 1)	4D	77
-Page Down (Note 1)	4E	78
-Right Arrow (Note 1)	4F	79
-Left Arrow (Note 1)	50	80
-Down Arrow (Note 1)	51	81
-Up Arrow (Note 1)	52	82
+Insert	49	73
+Home	4A	74
+Page Up	4B	75
+Delete	4C	76
+End	4D	77
+Page Down	4E	78
+Right Arrow	4F	79
+Left Arrow	50	80
+Down Arrow	51	81
+Up Arrow	52	82
 Num Lock	53	83
-Keypad / (Note 1)	54	84
+Keypad /	54	84
 Keypad *	55	85
 Keypad -	56	86
 Keypad +	57	87
@@ -103,7 +103,7 @@ Keypad 8 Up	60	96
 Keypad 9 PageUp	61	97
 Keypad 0 Insert	62	98
 Keypad . Delete	63	99
-Europe 2 (Note 2)	64	100
+Europe 2	64	100
 App	65	101
 Keyboard Power	66	102
 Keypad =	67	103
