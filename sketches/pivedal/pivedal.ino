@@ -1,44 +1,42 @@
 const int sensorPin = 2;
-const int INS_MODE = 1;
-const int NAV_MODE = 2;
-const int PEDAL_DOWN = 1;
-const int PEDAL_UP = 2;
+const int interruptPin = 0;
 
-int sensorValue;
-int current_mode;
-uint8_t keyBuffer[8] = { 0 };
+const byte PEDAL_DOWN = 1;
+const byte PEDAL_UP = 2;
+const byte INS_MODE = 1;
+const byte NAV_MODE = 2;
+volatile byte currentMode;
+
+const int QUEUE_SIZE = 2;
+volatile byte queue[QUEUE_SIZE];
+volatile int queueCount;
+
+const int INS_KEY_CODE = 73;
+const int ESC_KEY_CODE = 41;
+const int RELEASE_KEY_CODE = 0;
 
 void setup() {
   Serial.begin(9600);
   pinMode(sensorPin, INPUT);
+  attachInterrupt(interruptPin,  on_change, CHANGE);
+  currentMode = (pedal_status() == PEDAL_DOWN) ? INS_MODE : NAV_MODE;
 }
 
-void loop() {
-  switch (current_mode) {
-    case INS_MODE:
-      if (pedalStatus() == PEDAL_UP) {
-        sendNavModeKeys();
-        current_mode = NAV_MODE;
-      }
-      break;
-    case NAV_MODE:
-      if (pedalStatus() == PEDAL_DOWN) {
-        sendInsertModeKeys();
-        current_mode = INS_MODE;
-      }
-      break;
-    default:
-      if (pedalStatus() == PEDAL_DOWN) {
-        current_mode = INS_MODE;
-      } else {
-        current_mode = NAV_MODE;
-      }
+void on_change() {
+  if (true) {   
+    queue_push(pedal_status());
   }
-
-  delay(100);
 }
 
-int pedalStatus() {
+void queue_push(byte stat) {
+  for (int i = 0; i < QUEUE_SIZE; i++) {
+    if (queue[i]) { continue; }
+    queue[i] = stat;
+    queueCount++;
+  }
+}
+
+int pedal_status() {
   switch (digitalRead(sensorPin)) {
     case HIGH:
       return PEDAL_DOWN;
@@ -49,31 +47,57 @@ int pedalStatus() {
   }
 }
 
-void sendInsertModeKeys() {
-  sendKey("Esc");
-  sendKey("Release");
-  sendKey("Ins");
-  sendKey("Release");
-}
-
-void sendNavModeKeys() {
-  sendKey("Esc");
-  sendKey("Release");
-  sendKey("Esc");
-  sendKey("Release");
-}
-
-void sendKey(char Key[]) {
-  keyBuffer[0] = 0;
-
-  if (strcmp(Key, "Ins") == 0) {
-    keyBuffer[2] = 73;
-  } else if (strcmp(Key, "Esc") == 0) {
-    keyBuffer[2] = 41;
-  } else if (strcmp(Key, "Release") == 0) {
-    keyBuffer[2] = 0;
+void loop() {
+  if (queueCount == 0) { return; }
+  int pedalEvent;
+  
+  byte currentQueue[QUEUE_SIZE];
+  memcpy(currentQueue, (byte *)queue, sizeof(*queue) );
+  for (int i = 0; i < QUEUE_SIZE; i++) {
+    queue[i] = NULL;
   }
+  queueCount = 0;
 
+  for (int i = 0; i < QUEUE_SIZE; i++) {
+    if (!currentQueue[i]) { continue; }
+    pedalEvent = currentQueue[i];
+
+    switch (pedalEvent) {
+      case PEDAL_UP:
+        if (currentMode == INS_MODE) {
+          send_nav_mode_keys();
+          currentMode = NAV_MODE;
+        }
+        break;
+      case PEDAL_DOWN:
+        if (currentMode == NAV_MODE) {
+          send_insert_mode_keys();
+          currentMode = INS_MODE;
+        }
+        break;
+    }
+  }
+}
+
+void send_insert_mode_keys() {
+  send_key(ESC_KEY_CODE);
+  send_key(RELEASE_KEY_CODE);
+  send_key(INS_KEY_CODE);
+  send_key(RELEASE_KEY_CODE);
+}
+
+void send_nav_mode_keys() {
+  send_key(ESC_KEY_CODE);
+  send_key(RELEASE_KEY_CODE);
+  send_key(ESC_KEY_CODE);
+  send_key(RELEASE_KEY_CODE);
+}
+
+void send_key(int keyCode) {
+  uint8_t keyBuffer[8] = { 0 };
+
+  keyBuffer[0] = 0;
+  keyBuffer[2] = keyCode;
   Serial.write(keyBuffer, 8);
   delay(100); //allow host to read
 }
