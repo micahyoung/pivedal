@@ -7,14 +7,6 @@ const byte INS_MODE = 1;
 const byte NAV_MODE = 2;
 volatile byte currentMode;
 
-const int QUEUE_SIZE = 2;
-volatile byte queue[QUEUE_SIZE];
-volatile int queueCount;
-
-const int INS_KEY_CODE = 73;
-const int ESC_KEY_CODE = 41;
-const int RELEASE_KEY_CODE = 0;
-
 void setup() {
   Serial.begin(9600);
   pinMode(sensorPin, INPUT);
@@ -31,6 +23,9 @@ void on_change() {
   }
 }
 
+const int QUEUE_SIZE = 2;
+volatile byte queue[QUEUE_SIZE];
+volatile int queueCount;
 void queue_push(byte stat) {
   for (int i = 0; i < QUEUE_SIZE; i++) {
     if (queue[i]) { continue; }
@@ -82,6 +77,9 @@ void loop() {
   }
 }
 
+const int INS_KEY_CODE = 73;
+const int ESC_KEY_CODE = 41;
+const int RELEASE_KEY_CODE = 0;
 void send_insert_mode_keys() {
   send_key(ESC_KEY_CODE);
   send_key(RELEASE_KEY_CODE);
