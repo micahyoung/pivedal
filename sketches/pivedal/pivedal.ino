@@ -22,8 +22,11 @@ void setup() {
   currentMode = (pedal_status() == PEDAL_DOWN) ? INS_MODE : NAV_MODE;
 }
 
+long lastDebounceTime = 0;
+const int DEBOUNCE_DELAY = 100;
 void on_change() {
-  if (true) {   
+  if ((millis() - lastDebounceTime) > DEBOUNCE_DELAY) {
+    lastDebounceTime = millis();
     queue_push(pedal_status());
   }
 }
