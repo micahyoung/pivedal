@@ -100,5 +100,5 @@ void send_key(int keyCode) {
   keyBuffer[0] = 0;
   keyBuffer[2] = keyCode;
   Serial.write(keyBuffer, 8);
-  delay(100); //allow host to read
+  delay(50); //allow host to read
 }
