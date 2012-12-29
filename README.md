@@ -5,7 +5,7 @@ The unofficial VIM clutch of Pivotal Labs
 ## Hardware
 
 * [Arduino Uno rev3](http://arduino.cc/en/Main/ArduinoBoardUno)
-* Pedal sensor (TBD)
+* Pedal sensor (e.g. this cheap [momentary pedal switch](http://www.amazon.com/Momentary-Contact-Plastic-Pedal-Switch/dp/B0050MUHFG/))
 
 ### Purchase
 * [Arduino Store](http://store.arduino.cc/ww/index.php?main_page=product_info&cPath=11_12&products_id=195)
