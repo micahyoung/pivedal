@@ -1,3 +1,5 @@
+#include "Arduino.h"
+
 const int SENSOR_PIN = 2;
 const int INTERRUPT_PIN = 0;
 
@@ -7,20 +9,8 @@ const byte INS_MODE = 3;
 const byte NAV_MODE = 4;
 volatile byte currentMode;
 
-void setup() {
-  Serial.begin(9600);
-  pinMode(SENSOR_PIN, INPUT);
-  attachInterrupt(INTERRUPT_PIN, on_change, CHANGE);
-  currentMode = (pedal_status() == PEDAL_DOWN) ? INS_MODE : NAV_MODE;
-}
-
-const int DEBOUNCE_DELAY = 100;
-long lastDebounceTime = 0;
-void on_change() {
-  if ((millis() - lastDebounceTime) > DEBOUNCE_DELAY) {
-    lastDebounceTime = millis();
-    queue_push(pedal_status());
-  }
+int pedal_status() {
+  return (digitalRead(SENSOR_PIN) == HIGH) ? PEDAL_DOWN : PEDAL_UP;
 }
 
 const int QUEUE_SIZE = 2;
@@ -31,6 +21,15 @@ void queue_push(byte stat) {
     if (queue[i]) { continue; }
     queue[i] = stat;
     queueCount++;
+  }
+}
+
+const unsigned int DEBOUNCE_DELAY = 100;
+unsigned long lastDebounceTime = 0;
+void on_change() {
+  if ((millis() - lastDebounceTime) > DEBOUNCE_DELAY) {
+    lastDebounceTime = millis();
+    queue_push(pedal_status());
   }
 }
 
@@ -46,8 +45,37 @@ byte *clear_queue() {
   return currentQueue;
 }
 
-int pedal_status() {
-  return (digitalRead(SENSOR_PIN) == HIGH) ? PEDAL_DOWN : PEDAL_UP;
+void send_key(int keyCode) {
+  uint8_t keyBuffer[8] = { 0 };
+
+  keyBuffer[0] = 0;
+  keyBuffer[2] = keyCode;
+  Serial.write(keyBuffer, 8);
+  delay(50); //allow host to read
+}
+
+const int INS_KEY_CODE = 73;
+const int ESC_KEY_CODE = 41;
+const int RELEASE_KEY_CODE = 0;
+void send_insert_mode_keys() {
+  send_key(ESC_KEY_CODE);
+  send_key(RELEASE_KEY_CODE);
+  send_key(INS_KEY_CODE);
+  send_key(RELEASE_KEY_CODE);
+}
+
+void send_nav_mode_keys() {
+  send_key(ESC_KEY_CODE);
+  send_key(RELEASE_KEY_CODE);
+  send_key(ESC_KEY_CODE);
+  send_key(RELEASE_KEY_CODE);
+}
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(SENSOR_PIN, INPUT);
+  attachInterrupt(INTERRUPT_PIN, on_change, CHANGE);
+  currentMode = (pedal_status() == PEDAL_DOWN) ? INS_MODE : NAV_MODE;
 }
 
 void loop() {
@@ -75,30 +103,4 @@ void loop() {
         break;
     }
   }
-}
-
-const int INS_KEY_CODE = 73;
-const int ESC_KEY_CODE = 41;
-const int RELEASE_KEY_CODE = 0;
-void send_insert_mode_keys() {
-  send_key(ESC_KEY_CODE);
-  send_key(RELEASE_KEY_CODE);
-  send_key(INS_KEY_CODE);
-  send_key(RELEASE_KEY_CODE);
-}
-
-void send_nav_mode_keys() {
-  send_key(ESC_KEY_CODE);
-  send_key(RELEASE_KEY_CODE);
-  send_key(ESC_KEY_CODE);
-  send_key(RELEASE_KEY_CODE);
-}
-
-void send_key(int keyCode) {
-  uint8_t keyBuffer[8] = { 0 };
-
-  keyBuffer[0] = 0;
-  keyBuffer[2] = keyCode;
-  Serial.write(keyBuffer, 8);
-  delay(50); //allow host to read
 }
